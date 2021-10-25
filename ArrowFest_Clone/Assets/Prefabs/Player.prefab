@@ -41,6 +41,7 @@ GameObject:
   - component: {fileID: 7263044204901438765}
   - component: {fileID: 7263044204901438762}
   - component: {fileID: 7263044204901438763}
+  - component: {fileID: 1423250270}
   m_Layer: 0
   m_Name: Main Camera
   m_TagString: MainCamera
@@ -56,7 +57,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7263044204901438760}
   m_LocalRotation: {x: 0.08715578, y: 0, z: 0, w: 0.9961947}
-  m_LocalPosition: {x: 0, y: 0.6, z: -1}
+  m_LocalPosition: {x: 0, y: 0.6, z: -0.9}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 7263044205011702349}
@@ -113,6 +114,15 @@ AudioListener:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7263044204901438760}
   m_Enabled: 1
+--- !u!45 &1423250270
+Skybox:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7263044204901438760}
+  m_Enabled: 1
+  m_CustomSkybox: {fileID: 2100000, guid: 1cf6f4c6e6e0518419839d3f5448dd99, type: 2}
 --- !u!1 &7263044205011702347
 GameObject:
   m_ObjectHideFlags: 0
@@ -142,7 +152,7 @@ Transform:
   m_GameObject: {fileID: 7263044205011702347}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.93, y: 1, z: 1}
   m_Children:
   - {fileID: 7263044204901438765}
   - {fileID: 6653826736781842971}
@@ -161,8 +171,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: a1fe35458cf38804082e7958a1c68f00, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _arrowCount: 3
-  scoreBoard: {fileID: 0}
+  _arrowCount: 20
 --- !u!54 &819904504
 Rigidbody:
   m_ObjectHideFlags: 0
@@ -190,8 +199,8 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.1, y: 0.1, z: 0.1}
-  m_Center: {x: 0, y: 0, z: 0}
+  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Center: {x: 0, y: 0, z: 0.24}
 --- !u!114 &1618167872832231479
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -205,7 +214,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   updateMethod: 0
-  _spline: {fileID: 6477352582032303855, guid: fd06412a7c53bfa4ab8faf575579f66c, type: 3}
+  _spline: {fileID: 0}
   _autoUpdate: 1
   _rotationModifier:
     blend: 1
@@ -1401,8 +1410,8 @@ MonoBehaviour:
     _hasRotationOffset: 0
     _offset: {x: 0, y: 0.2}
     _rotationOffset: {x: 0, y: 0, z: 0}
-    _baseScale: {x: 1, y: 1, z: 1}
-    velocityHandleMode: 0
+    _baseScale: {x: 0.93, y: 1, z: 1}
+    velocityHandleMode: 3
     applyPositionX: 1
     applyPositionY: 1
     applyPositionZ: 1
@@ -1410,7 +1419,7 @@ MonoBehaviour:
     applyRotationX: 1
     applyRotationY: 1
     applyRotationZ: 1
-    applyScaleX: 0
+    applyScaleX: 1
     applyScaleY: 0
     applyScaleZ: 0
     targetUser: {fileID: 1618167872832231479}
