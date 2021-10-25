@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Door : MonoBehaviour
+public class Door : MonoBehaviour, IBooster
 {
     public enum Position
     {
@@ -34,6 +34,20 @@ public class Door : MonoBehaviour
     public int Value { get => _value; }
     public Operator OperatorType { get => _operatorType; }
 
+    // Start is called before the first frame update
+    void Start()
+    {
+        SetValueText();
+        SetColor();
+        SetPosition();
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
     private void SetColor()
     {
         var renderer = transform.Find("Glass").GetComponent<MeshRenderer>();
@@ -50,7 +64,7 @@ public class Door : MonoBehaviour
         transform.position = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
     }
 
-    private void OnTriggerEnter(Collider other)
+    public void Boost(GameObject other)
     {
         var player = other.gameObject.GetComponent<Player>();
 
@@ -62,7 +76,7 @@ public class Door : MonoBehaviour
             case Operator.Subtraction:
                 player.RemoveArrows(Value);
                 break;
-            case Operator.Multiplication:                
+            case Operator.Multiplication:
                 player.AddArrows(player.ArrowCount * (Value - 1));
                 break;
             case Operator.Division:
@@ -71,19 +85,5 @@ public class Door : MonoBehaviour
             default:
                 break;
         }
-    }
- 
-    // Start is called before the first frame update
-    void Start()
-    {
-        SetValueText();
-        SetColor();
-        SetPosition();
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
     }
 }

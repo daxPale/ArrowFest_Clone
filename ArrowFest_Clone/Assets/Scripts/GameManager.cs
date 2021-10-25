@@ -1,5 +1,6 @@
 using System.Collections;
 using System.Collections.Generic;
+using UnityEngine.UI;
 using UnityEngine;
 
 public class GameManager : MonoBehaviour
@@ -29,5 +30,10 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _instance = this;
+    }
+
+    public void UpdateScoreBoard(int arrows)
+    {
+        scoreBoard.GetComponentInChildren<Text>().text = arrows.ToString();
     }
 }

@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviour, IDamageable
 {
     [SerializeField] private int _arrowCount;
 
@@ -12,6 +12,29 @@ public class Player : MonoBehaviour
 
     public List<Transform> Arrows { get => _arrows; }
     public int ArrowCount { get => _arrowCount; }
+
+    private void Awake()
+    {
+        _counterDisplay = GameManager.Instance.scoreBoard.GetComponentInChildren<CounterDisplay>();
+    }
+
+    // Start is called before the first frame update
+    void Start()
+    {
+        AddArrows(_arrowCount);
+    }
+
+    // Update is called once per frame
+    void Update()
+    {
+        
+    }
+
+    public void TakeDamage(GameObject other)
+    {
+        var enemy = other.GetComponent<Enemy>();
+        RemoveArrows(enemy.damagePower);
+    }
 
     public void AddArrows(int count)
     {
@@ -23,9 +46,10 @@ public class Player : MonoBehaviour
         _counterDisplay.AnimateCounterDisplay();
         UpdateCounter();
     }
+
     public void RemoveArrows(int count)
     {
-        if(ArrowCount - count <= 0)
+        if (ArrowCount - count <= 0)
         {
             //game over
             return;
@@ -39,25 +63,22 @@ public class Player : MonoBehaviour
         _counterDisplay.AnimateCounterDisplay();
         UpdateCounter();
     }
+
+    private void OnTriggerExit(Collider other)
+    {
+        if (other.gameObject.GetComponent<IDamageable>() != null)
+        {
+            other.GetComponent<IDamageable>().TakeDamage(gameObject);
+            TakeDamage(other.gameObject);
+        }else if(other.gameObject.GetComponent<IBooster>() != null)
+        {
+            other.gameObject.GetComponent<IBooster>().Boost(gameObject);
+        }
+    }
+
     public void UpdateCounter()
     {
         _arrowCount = _arrows.Count;
-        GameManager.Instance.scoreBoard.GetComponentInChildren<Text>().text = _arrowCount.ToString();
-    }
-
-    private void Awake()
-    {
-        _counterDisplay = GameManager.Instance.scoreBoard.GetComponentInChildren<CounterDisplay>();
-    }
-    // Start is called before the first frame update
-    void Start()
-    {
-        AddArrows(_arrowCount);
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
+        GameManager.Instance.UpdateScoreBoard(_arrowCount);
     }
 }
