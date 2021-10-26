@@ -4,11 +4,11 @@ using UnityEngine;
 
 public class ArrowSystem : MonoBehaviour
 {
-    [SerializeField] private int _orbit = 0;
-    [SerializeField] private int _orbitSize = 1;
     [Range(1, 5)]
     [SerializeField] private float _radius = 1f;
-    [SerializeField] private int _index = 0;
+    private int _orbit = 0;
+    private int _orbitSize = 0;
+    private int _index = 1;
 
     private Player _player;
 
@@ -27,8 +27,6 @@ public class ArrowSystem : MonoBehaviour
             _player.Arrows.Add(ins);
         }
         _player.UpdateScoreBoard();
-
-        //Debug.Log("orbit:" + _orbit + " size:" + _orbitSize + " index:" + _index);
     }
 
     public void RemoveArrows(int count)
@@ -47,8 +45,6 @@ public class ArrowSystem : MonoBehaviour
             _player.Arrows.RemoveAt(_player.ArrowCount - i - 1);
         }
         _player.UpdateScoreBoard();
-
-        //Debug.Log("orbit:" + _orbit + " size:" + _orbitSize + " index:" +_index);
     }
 
     private Vector3 SetNewArrowLocation()
@@ -56,12 +52,10 @@ public class ArrowSystem : MonoBehaviour
         Vector3 pos = new Vector3(0, 0, 0);
         if (_orbit == 0)
         {
-            _index++;
             return pos;
         }
-
-        pos.x = Mathf.Cos((360 / _orbitSize) * _index) * _orbit * _radius/100;
-        pos.y = Mathf.Sin((360 / _orbitSize) * _index) * _orbit * _radius/100;
+        pos.x = Mathf.Cos((360 / _orbitSize) * Mathf.PI / 180 * _index) * _orbit * _radius/100;
+        pos.y = Mathf.Sin((360 / _orbitSize) * Mathf.PI / 180 * _index) * _orbit * _radius/100;
         _index++;
 
         return pos;
@@ -71,11 +65,11 @@ public class ArrowSystem : MonoBehaviour
     {
         if (hasAdded)
         {
-            if (_index == _orbitSize)
+            if (_index > _orbitSize) 
             {
                 _orbit++;
-                _orbitSize = (int)(2 * Mathf.PI * _orbit);
-                _index = 0;
+                _orbitSize = CalculateOrbitSize(_orbit);
+                _index = 1;
             }
         }
         else
@@ -84,9 +78,14 @@ public class ArrowSystem : MonoBehaviour
             if (_index == 0)
             {
                 _orbit--;
-                _orbitSize = (int)(2 * Mathf.PI * _orbit);
-                _index = _orbitSize - 1;
+                _orbitSize = CalculateOrbitSize(_orbit);
+                _index = _orbitSize;
             }
         }
+    }
+
+    private int CalculateOrbitSize(int orbit)
+    {
+        return Mathf.RoundToInt(2 * Mathf.PI * orbit) + 1;
     }
 }

@@ -27,7 +27,10 @@ public class Player : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        
+        if (Input.GetKeyDown(KeyCode.Space))
+            arrowSystem.AddArrows(1);
+        if (Input.GetKeyDown(KeyCode.C))
+            arrowSystem.RemoveArrows(1);
     }
 
     public void TakeDamage(GameObject other)
