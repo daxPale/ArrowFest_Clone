@@ -9,6 +9,14 @@ public interface IDamageable
 
 public interface IBooster
 {
+    public enum Operator
+    {
+        Addition,
+        Subtraction,
+        Multiplication,
+        Division
+    };
+
     public abstract void Boost(GameObject other);
 }
 
