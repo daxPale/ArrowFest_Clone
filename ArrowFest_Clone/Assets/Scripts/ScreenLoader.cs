@@ -29,7 +29,7 @@ public class ScreenLoader : MonoBehaviour
 
     public void AnimateWinScreen()
     {
-        _loseState.gameObject.SetActive(true);
+        _winState.gameObject.SetActive(true);
 
         foreach (Transform child in _winState.transform)
         {

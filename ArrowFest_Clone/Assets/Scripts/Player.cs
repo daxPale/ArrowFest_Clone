@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Dreamteck.Splines;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -9,13 +10,18 @@ public class Player : MonoBehaviour, IDamageable
 
     private List<Transform> _arrows = new List<Transform>();
     private CounterDisplay _counterDisplay;
+    private ScreenLoader _screenLoader;
+    private SplineFollower _follower;
+    
     public bool isAllive = true;
     public List<Transform> Arrows { get => _arrows; }
     public int ArrowCount { get => arrowCount; }
 
     private void Awake()
     {
-        _counterDisplay = GameManager.Instance.scoreBoard.GetComponentInChildren<CounterDisplay>();
+        _counterDisplay = GameManager.Instance.scoreBoard.GetComponent<CounterDisplay>();
+        _screenLoader = GameManager.Instance.gameStates.GetComponent<ScreenLoader>();
+        _follower = GetComponent<SplineFollower>();
     }
 
     // Start is called before the first frame update
@@ -28,9 +34,7 @@ public class Player : MonoBehaviour, IDamageable
     void Update()
     {
         if (Input.GetKeyDown(KeyCode.Space))
-            arrowSystem.AddArrows(1);
-        if (Input.GetKeyDown(KeyCode.C))
-            arrowSystem.RemoveArrows(1);
+            _screenLoader.AnimateLoseScreen();
     }
 
     public void TakeDamage(GameObject other)
@@ -38,9 +42,18 @@ public class Player : MonoBehaviour, IDamageable
         var enemy = other.GetComponent<Enemy>();
         arrowSystem.RemoveArrows(enemy.damagePower);
     }
+
     public void Dead()
     {
         isAllive = false;
+        _follower.follow = false;
+        _screenLoader.AnimateLoseScreen();
+    }
+    public void UpdateScoreBoard()
+    {
+        arrowCount = _arrows.Count;
+        _counterDisplay.UpdateCounter(arrowCount);
+        _counterDisplay.AnimateScoreBoard();
     }
 
     private void OnTriggerExit(Collider other)
@@ -53,12 +66,5 @@ public class Player : MonoBehaviour, IDamageable
         {
             other.gameObject.GetComponent<IBooster>().Boost(gameObject);
         }
-    }
-
-    public void UpdateScoreBoard()
-    {
-        arrowCount = _arrows.Count;
-        _counterDisplay.UpdateCounter(arrowCount);
-        _counterDisplay.AnimateScoreBoard();
     }
 }

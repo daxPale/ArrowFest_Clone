@@ -7,7 +7,8 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    public Image scoreBoard;
+    public CounterDisplay scoreBoard;
+    public ScreenLoader gameStates;
     public Transform arrowPrefab;
     public Material redMaterial;
     public Material blueMaterial;
