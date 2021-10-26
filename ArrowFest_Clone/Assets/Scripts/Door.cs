@@ -67,20 +67,21 @@ public class Door : MonoBehaviour, IBooster
     public void Boost(GameObject other)
     {
         var player = other.gameObject.GetComponent<Player>();
+        var arrows = other.gameObject.GetComponentInChildren<ArrowSystem>();
 
         switch (OperatorType)
         {
             case Operator.Addition:
-                player.AddArrows(Value);
+                arrows.AddArrows(Value);
                 break;
             case Operator.Subtraction:
-                player.RemoveArrows(Value);
+                arrows.RemoveArrows(Value);
                 break;
             case Operator.Multiplication:
-                player.AddArrows(player.ArrowCount * (Value - 1));
+                arrows.AddArrows(player.ArrowCount * (Value - 1));
                 break;
             case Operator.Division:
-                player.RemoveArrows(player.ArrowCount * (1 - Value));
+                arrows.RemoveArrows(player.ArrowCount * (1 - Value));
                 break;
             default:
                 break;

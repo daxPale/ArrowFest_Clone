@@ -7,7 +7,7 @@ public class GameManager : MonoBehaviour
 {
     private static GameManager _instance;
 
-    public Canvas scoreBoard;
+    public Image scoreBoard;
     public Transform arrowPrefab;
     public Material redMaterial;
     public Material blueMaterial;
@@ -30,10 +30,5 @@ public class GameManager : MonoBehaviour
     void Awake()
     {
         _instance = this;
-    }
-
-    public void UpdateScoreBoard(int arrows)
-    {
-        scoreBoard.GetComponentInChildren<Text>().text = arrows.ToString();
     }
 }

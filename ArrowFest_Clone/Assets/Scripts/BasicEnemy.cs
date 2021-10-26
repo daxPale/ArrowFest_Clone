@@ -1,6 +1,7 @@
 using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using DG.Tweening;
 
 public class BasicEnemy : Enemy, IDamageable
 {
@@ -13,7 +14,7 @@ public class BasicEnemy : Enemy, IDamageable
     // Update is called once per frame
     void Update()
     {
-        
+
     }
 
     public override void SetPosition()
@@ -29,6 +30,9 @@ public class BasicEnemy : Enemy, IDamageable
     {
         var player = other.GetComponent<Player>();
         if (player.ArrowCount > damagePower)
-            GetComponent<Renderer>().material.SetColor("_Color", Color.blue);
+        {
+            transform.transform.DORewind();
+            GetComponent<Renderer>().material.DOColor(Color.red, 0.1f);
+        }
     }
 }
