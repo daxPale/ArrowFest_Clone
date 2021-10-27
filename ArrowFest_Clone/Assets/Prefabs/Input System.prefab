@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &426483720685175795
+--- !u!1 &8084897758197199330
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,22 +8,22 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 426483720685175309}
-  - component: {fileID: 426483720685175794}
+  - component: {fileID: 8084897758197199356}
+  - component: {fileID: 8084897758197199331}
   m_Layer: 0
-  m_Name: GameManager
+  m_Name: Input System
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &426483720685175309
+--- !u!4 &8084897758197199356
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426483720685175795}
+  m_GameObject: {fileID: 8084897758197199330}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
   m_LocalScale: {x: 1, y: 1, z: 1}
@@ -31,20 +31,19 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!114 &426483720685175794
+--- !u!114 &8084897758197199331
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 426483720685175795}
+  m_GameObject: {fileID: 8084897758197199330}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0e6849c710f4cdb43a398e963ec9cf02, type: 3}
+  m_Script: {fileID: 11500000, guid: 5728f6d3e0adf894693be2f368f8e44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  scoreBoard: {fileID: 0}
-  gameStates: {fileID: 0}
-  arrowPrefab: {fileID: 7846289597411193735, guid: 3449c3770ca6bc94eb071eb1424fbdb3, type: 3}
-  redMaterial: {fileID: 2100000, guid: bd2f59866adf5ca429e692a840083fea, type: 2}
-  blueMaterial: {fileID: 2100000, guid: 4db428c24b6ea4a4ba44c371f56cca95, type: 2}
+  _speed: 1.2
+  _rightLimit: 0.4
+  _leftLimit: -0.4
+  player: {fileID: 0}

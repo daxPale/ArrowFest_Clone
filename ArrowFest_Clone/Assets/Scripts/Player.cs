@@ -2,6 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dreamteck.Splines;
+using System;
 
 public class Player : MonoBehaviour, IDamageable
 {
@@ -35,6 +36,14 @@ public class Player : MonoBehaviour, IDamageable
     {
         if (Input.GetKeyDown(KeyCode.Space))
             _screenLoader.AnimateLoseScreen();
+    }
+
+    public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
+    {
+        _follower.motion.offset += new Vector2(target.x * speed / 1000, 0);
+
+        if (_follower.motion.offset.x > rightLimit || _follower.motion.offset.x < leftLimit)
+            _follower.motion.offset = new Vector2(Mathf.Clamp(_follower.motion.offset.x, leftLimit, rightLimit), _follower.motion.offset.y);
     }
 
     public void TakeDamage(GameObject other)
