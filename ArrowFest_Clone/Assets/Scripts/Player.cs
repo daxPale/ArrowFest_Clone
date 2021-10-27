@@ -13,8 +13,8 @@ public class Player : MonoBehaviour, IDamageable
     private CounterDisplay _counterDisplay;
     private ScreenLoader _screenLoader;
     private SplineFollower _follower;
-    
-    public bool isAllive = true;
+    private bool _isAllive = true;
+
     public List<Transform> Arrows { get => _arrows; }
     public int ArrowCount { get => arrowCount; }
 
@@ -23,6 +23,7 @@ public class Player : MonoBehaviour, IDamageable
         _counterDisplay = GameManager.Instance.scoreBoard.GetComponent<CounterDisplay>();
         _screenLoader = GameManager.Instance.gameStates.GetComponent<ScreenLoader>();
         _follower = GetComponent<SplineFollower>();
+        _follower.onNode += OnNodePassed;
     }
 
     // Start is called before the first frame update
@@ -34,7 +35,7 @@ public class Player : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-    
+      
     }
 
     public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
@@ -50,23 +51,33 @@ public class Player : MonoBehaviour, IDamageable
         _screenLoader.AnimateFirstTap();
     }
 
+    public void Dead()
+    {
+        _isAllive = false;
+        _follower.follow = false;
+        _screenLoader.AnimateLoseScreen();
+    }
+
     public void TakeDamage(GameObject other)
     {
         var enemy = other.GetComponent<Enemy>();
         arrowSystem.RemoveArrows(enemy.damagePower);
     }
 
-    public void Dead()
-    {
-        isAllive = false;
-        _follower.follow = false;
-        _screenLoader.AnimateLoseScreen();
-    }
     public void UpdateScoreBoard()
     {
         arrowCount = _arrows.Count;
         _counterDisplay.UpdateCounter(arrowCount);
         _counterDisplay.AnimateScoreBoard();
+    }
+
+    private void OnNodePassed(List<SplineTracer.NodeConnection> passed)
+    {
+        SplineTracer.NodeConnection nodeConnection = passed[0];
+        if (nodeConnection.node.name == "Node_1")
+        {
+            _screenLoader.AnimateWinScreen();
+        }
     }
 
     private void OnTriggerExit(Collider other)
