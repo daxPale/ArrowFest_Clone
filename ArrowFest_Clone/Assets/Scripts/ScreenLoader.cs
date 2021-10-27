@@ -8,6 +8,8 @@ public class ScreenLoader : MonoBehaviour
 {
     [SerializeField] private Image _loseState;
     [SerializeField] private Image _winState;
+    [SerializeField] private Transform _holdAndMove;
+
     [Range(0, 1)]
     public float targetAlphaValue = 0.5f;
     [Range(0, 5)]
@@ -39,5 +41,11 @@ public class ScreenLoader : MonoBehaviour
 
         _winState.canvasRenderer.SetAlpha(0.0f);
         _winState.CrossFadeAlpha(targetAlphaValue, fadeOutLenght, false);
+    }
+
+    public void AnimateFirstTap()
+    {
+        _holdAndMove.DOScaleX(0, 0.7f).SetEase(Ease.InElastic);
+        //_holdAndMove.gameObject.SetActive(false);
     }
 }

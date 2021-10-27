@@ -34,8 +34,7 @@ public class Player : MonoBehaviour, IDamageable
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Space))
-            _screenLoader.AnimateLoseScreen();
+    
     }
 
     public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
@@ -44,6 +43,11 @@ public class Player : MonoBehaviour, IDamageable
 
         if (_follower.motion.offset.x > rightLimit || _follower.motion.offset.x < leftLimit)
             _follower.motion.offset = new Vector2(Mathf.Clamp(_follower.motion.offset.x, leftLimit, rightLimit), _follower.motion.offset.y);
+    }
+    public void Follow()
+    {
+        _follower.follow = true;
+        _screenLoader.AnimateFirstTap();
     }
 
     public void TakeDamage(GameObject other)

@@ -10,7 +10,7 @@ public class InputSystem : MonoBehaviour
     [SerializeField] private float _speed = 1;
     [SerializeField] private float _rightLimit = 0.4f;
     [SerializeField] private float _leftLimit = -0.4f;
-
+    [SerializeField] private bool _tapped = false;
     public Player player;
 
     void Update()
@@ -20,7 +20,11 @@ public class InputSystem : MonoBehaviour
 
     public void MobileControl()
     {
-        if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
+        if(Input.touchCount == 1 && Input.GetTouch(0).phase == TouchPhase.Began)
+        {
+            _tapped = true;
+            player.Follow();
+        }else if (Input.touchCount > 0 && Input.GetTouch(0).phase == TouchPhase.Moved)
         {
             Vector2 touchDeltaPosition = Input.GetTouch(0).deltaPosition;
             player.Move(touchDeltaPosition, _leftLimit, _rightLimit, _speed);

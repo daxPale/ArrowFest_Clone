@@ -164,15 +164,15 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 7263044205011702347}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalRotation: {x: 0.007923736, y: 0, z: 0, w: 0.99996865}
+  m_LocalPosition: {x: -0.004805334, y: 0.2451355, z: -0.015663147}
   m_LocalScale: {x: 0.93, y: 1, z: 1}
   m_Children:
   - {fileID: 7263044204901438765}
   - {fileID: 6653826736781842971}
   m_Father: {fileID: 0}
   m_RootOrder: 0
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0.908, y: 0, z: 0}
 --- !u!114 &3045516684488022468
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ BoxCollider:
   m_IsTrigger: 1
   m_Enabled: 1
   serializedVersion: 2
-  m_Size: {x: 0.03, y: 0.03, z: 0.03}
+  m_Size: {x: 0.02, y: 0.02, z: 0.02}
   m_Center: {x: 0, y: 0, z: 0.24}
 --- !u!114 &1618167872832231479
 MonoBehaviour:
@@ -229,7 +229,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4ddc1a2536715a24095c464a2c394d5d, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  updateMethod: 0
+  updateMethod: 1
   _spline: {fileID: 0}
   _autoUpdate: 1
   _rotationModifier:
@@ -1416,7 +1416,7 @@ MonoBehaviour:
   buildOnAwake: 0
   buildOnEnable: 0
   _isUpdated: 1
-  applyDirectionRotation: 1
+  applyDirectionRotation: 0
   useTriggers: 0
   triggerGroup: 0
   _direction: 1
@@ -1459,7 +1459,7 @@ MonoBehaviour:
   wrapMode: 0
   followMode: 0
   autoStartPosition: 0
-  follow: 1
+  follow: 0
   preserveUniformSpeedWithOffset: 0
   _followSpeed: 2
   _followDuration: 1

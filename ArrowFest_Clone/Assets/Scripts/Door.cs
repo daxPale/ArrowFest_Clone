@@ -74,7 +74,7 @@ public class Door : MonoBehaviour, IBooster
                 arrows.AddArrows(player.ArrowCount * (Value - 1));
                 break;
             case IBooster.Operator.Division:
-                arrows.RemoveArrows(player.ArrowCount * (1 - Value));
+                arrows.RemoveArrows((Value - 1) * player.ArrowCount / Value);
                 break;
             default:
                 break;
