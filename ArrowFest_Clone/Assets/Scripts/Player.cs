@@ -42,7 +42,7 @@ public class Player : MonoBehaviour, IDamageable
     public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
     {
         //In order to move the arrows, we need to change offset values of spline follower component
-        _follower.motion.offset += new Vector2(target.x * Time.deltaTime * speed / 1000, 0);
+        _follower.motion.offset += new Vector2(target.x * Time.deltaTime * speed / 50, 0);
 
         //If the limit is exceeded, these values ​​are clamped.
         if (_follower.motion.offset.x > rightLimit || _follower.motion.offset.x < leftLimit)
