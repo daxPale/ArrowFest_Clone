@@ -1,4 +1,4 @@
-using System.Collections;
+﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 using Dreamteck.Splines;
@@ -40,8 +40,10 @@ public class Player : MonoBehaviour, IDamageable
 
     public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
     {
+        //In order to move the arrows, we need to change offset values of spline follower component
         _follower.motion.offset += new Vector2(target.x * speed / 1000, 0);
 
+        //If the limit is exceeded, these values ​​are clamped.
         if (_follower.motion.offset.x > rightLimit || _follower.motion.offset.x < leftLimit)
             _follower.motion.offset = new Vector2(Mathf.Clamp(_follower.motion.offset.x, leftLimit, rightLimit), _follower.motion.offset.y);
     }
@@ -60,6 +62,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public void TakeDamage(GameObject other)
     {
+        //Remove arrows by the amount of enemy damage
         var enemy = other.GetComponent<Enemy>();
         arrowSystem.RemoveArrows(enemy.damagePower);
     }
@@ -73,6 +76,8 @@ public class Player : MonoBehaviour, IDamageable
 
     private void OnNodePassed(List<SplineTracer.NodeConnection> passed)
     {
+        //Check if the player has reached the end node,
+        //If it had, show the win screen
         SplineTracer.NodeConnection nodeConnection = passed[0];
         if (nodeConnection.node.name == "Node_1")
         {

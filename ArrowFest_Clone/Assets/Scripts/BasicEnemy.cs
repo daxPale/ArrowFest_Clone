@@ -19,6 +19,7 @@ public class BasicEnemy : Enemy, IDamageable
 
     public override void SetPosition()
     {
+        //Position enemies according to position value (right & left & middle)
         float offset = position == Position.Right ? 0.25f
                      : position == Position.Left ? -0.25f
                      : 0;
@@ -28,6 +29,7 @@ public class BasicEnemy : Enemy, IDamageable
 
     public void TakeDamage(GameObject other)
     {
+        //Kill enemy if player has enough arrows (greater than damage power of enemy)
         var player = other.GetComponent<Player>();
         if (player.ArrowCount > damagePower)
         {

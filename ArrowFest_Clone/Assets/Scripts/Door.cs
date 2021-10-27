@@ -43,6 +43,8 @@ public class Door : MonoBehaviour, IBooster
 
     private void SetColor()
     {
+        //Blue Material: Addition, Multiplication
+        //Red Material: Subtraction, Division
         var renderer = transform.Find("Glass").GetComponent<MeshRenderer>();
         renderer.material = _operatorType == IBooster.Operator.Addition || _operatorType == IBooster.Operator.Multiplication ? GameManager.Instance.blueMaterial : GameManager.Instance.redMaterial;
     }
@@ -53,12 +55,15 @@ public class Door : MonoBehaviour, IBooster
     }
     private void SetPosition()
     {
+        //Position doors according to position value (right & left)
         float offset = _position == Position.Right ? 0.25f : -0.25f;
         transform.position = new Vector3(transform.position.x + offset, transform.position.y, transform.position.z);
     }
 
     public void Boost(GameObject other)
     {
+        //Change the number of arrows according to the value and operator of the door
+
         var player = other.gameObject.GetComponent<Player>();
         var arrows = other.gameObject.GetComponentInChildren<ArrowSystem>();
 

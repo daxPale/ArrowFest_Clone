@@ -770,9 +770,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 3a75ef6dfebf42d4da3af2eaf332d0da, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _loseState: {fileID: 1150404096}
-  _winState: {fileID: 50985447}
-  _holdAndMove: {fileID: 1243441720}
+  loseState: {fileID: 1150404096}
+  winState: {fileID: 50985447}
+  holdAndMove: {fileID: 1243441720}
   targetAlphaValue: 0.7
   fadeOutLenght: 2
 --- !u!1 &1887288461
@@ -1050,7 +1050,7 @@ MonoBehaviour:
       m_Calls: []
   m_FontData:
     m_Font: {fileID: 12800000, guid: 03b2efa1b4663a547b555bf184dcec36, type: 3}
-    m_FontSize: 32
+    m_FontSize: 40
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 0
@@ -1200,7 +1200,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0}
   m_AnchorMax: {x: 0.5, y: 0}
   m_AnchoredPosition: {x: 0, y: 270}
-  m_SizeDelta: {x: 75, y: 75}
+  m_SizeDelta: {x: 90, y: 90}
   m_Pivot: {x: 0.5, y: 0}
 --- !u!222 &422485581507660751
 CanvasRenderer:

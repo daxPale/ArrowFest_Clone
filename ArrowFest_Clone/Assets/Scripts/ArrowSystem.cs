@@ -5,10 +5,10 @@ using UnityEngine;
 public class ArrowSystem : MonoBehaviour
 {
     [Range(1, 5)]
-    [SerializeField] private float _radius = 1f;
-    private int _orbit = 0;
-    private int _orbitSize = 0;
-    private int _index = 1;
+    [SerializeField] private float _radius = 1f;    //coefficient for calculate radius of orbits
+    private int _orbit = 0;                         //amount of orbits
+    private int _orbitSize = 0;                     //amount of arrows the current orbit can has
+    private int _index = 1;                         //current arrow index in the orbit
 
     private Player _player;
 
@@ -19,6 +19,8 @@ public class ArrowSystem : MonoBehaviour
 
     public void AddArrows(int count)
     {
+        //Instantiate arrow objects and push them to player.Arrow list
+        //Cause most recently added will be given priority while being removed later
         for (int i = 0; i < count; i++)
         {
             Transform ins = Instantiate(GameManager.Instance.arrowPrefab, transform);
@@ -31,6 +33,7 @@ public class ArrowSystem : MonoBehaviour
 
     public void RemoveArrows(int count)
     {
+        //If there are no number of arrows to be removed, player dies
         if (_player.ArrowCount - count <= 0)
         {
             //game over
@@ -38,6 +41,7 @@ public class ArrowSystem : MonoBehaviour
             return;
         }
 
+        //Arrows are removed, last added first
         for (int i = 0; i < count; i++)
         {
             Destroy(_player.Arrows[_player.ArrowCount - i - 1].gameObject);
@@ -49,6 +53,7 @@ public class ArrowSystem : MonoBehaviour
 
     private Vector3 SetNewArrowLocation()
     {
+        //Places the arrows clockwise using the current index in the orbit
         Vector3 pos = new Vector3(0, 0, 0);
         if (_orbit == 0)
         {
@@ -63,6 +68,8 @@ public class ArrowSystem : MonoBehaviour
 
     private void ChangeOrbit(bool hasAdded)
     {
+        //Checks if orbit creation is needed if new arrow is added
+        //Likewise, if the arrows are removed, it checks if the number of orbits is decreasing
         if (hasAdded)
         {
             if (_index > _orbitSize) 
@@ -86,6 +93,7 @@ public class ArrowSystem : MonoBehaviour
 
     private int CalculateOrbitSize(int orbit)
     {
+        //Calculates how many arrows the orbit can hold
         return Mathf.RoundToInt(2 * Mathf.PI * orbit) + 1;
     }
 }

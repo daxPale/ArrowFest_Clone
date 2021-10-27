@@ -6,9 +6,9 @@ using DG.Tweening;
 
 public class ScreenLoader : MonoBehaviour
 {
-    [SerializeField] private Image _loseState;
-    [SerializeField] private Image _winState;
-    [SerializeField] private Transform _holdAndMove;
+    [SerializeField] private Image loseState;
+    [SerializeField] private Image winState;
+    [SerializeField] private Transform holdAndMove;
 
     [Range(0, 1)]
     public float targetAlphaValue = 0.5f;
@@ -17,35 +17,35 @@ public class ScreenLoader : MonoBehaviour
 
     public void AnimateLoseScreen()
     {
-        _loseState.gameObject.SetActive(true);
+        loseState.gameObject.SetActive(true);
 
-        foreach (Transform child in _loseState.transform)
+        foreach (Transform child in loseState.transform)
         {
             child.localScale = new Vector3(0, 0, 0);
             child.DOScale(new Vector3(1, 1, 1), 1.0f);
         }
   
-        _loseState.canvasRenderer.SetAlpha(0.0f);
-        _loseState.CrossFadeAlpha(targetAlphaValue, fadeOutLenght, false);
+        loseState.canvasRenderer.SetAlpha(0.0f);
+        loseState.CrossFadeAlpha(targetAlphaValue, fadeOutLenght, false);
     }
 
     public void AnimateWinScreen()
     {
-        _winState.gameObject.SetActive(true);
+        winState.gameObject.SetActive(true);
 
-        foreach (Transform child in _winState.transform)
+        foreach (Transform child in winState.transform)
         {
             child.localScale = new Vector3(0, 0, 0);
             child.DOScale(new Vector3(1, 1, 1), 1.0f);
         }
 
-        _winState.canvasRenderer.SetAlpha(0.0f);
-        _winState.CrossFadeAlpha(targetAlphaValue, fadeOutLenght, false);
+        winState.canvasRenderer.SetAlpha(0.0f);
+        winState.CrossFadeAlpha(targetAlphaValue, fadeOutLenght, false);
     }
 
     public void AnimateFirstTap()
     {
-        _holdAndMove.DOScaleX(0, 0.7f).SetEase(Ease.InElastic);
-        //_holdAndMove.gameObject.SetActive(false);
+        holdAndMove.DOScaleX(0, 0.7f).SetEase(Ease.InElastic);
+        //holdAndMove.gameObject.SetActive(false);
     }
 }
