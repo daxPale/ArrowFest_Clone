@@ -43,7 +43,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5728f6d3e0adf894693be2f368f8e44c, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  _speed: 1.2
+  _speed: 1
   _rightLimit: 0.4
   _leftLimit: -0.4
+  _tapped: 0
+  _desktopController: 1
   player: {fileID: 0}

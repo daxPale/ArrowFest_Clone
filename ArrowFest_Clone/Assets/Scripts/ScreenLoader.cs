@@ -45,7 +45,7 @@ public class ScreenLoader : MonoBehaviour
 
     public void AnimateFirstTap()
     {
-        holdAndMove.DOScaleX(0, 0.7f).SetEase(Ease.InElastic);
+        holdAndMove.DOScaleX(0, 0.4f).SetEase(Ease.InBack);
         //holdAndMove.gameObject.SetActive(false);
     }
 }

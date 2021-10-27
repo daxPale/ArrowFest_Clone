@@ -13,6 +13,9 @@ public class GameManager : MonoBehaviour
     public Transform arrowPrefab;
     public Material redMaterial;
     public Material blueMaterial;
+    
+    private bool _isPlaying = false;
+    public bool IsPlaying { get => _isPlaying; set { _isPlaying = value; } }
 
     public static GameManager Instance
     {

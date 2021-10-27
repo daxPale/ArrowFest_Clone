@@ -9,12 +9,14 @@ public class ArrowSystem : MonoBehaviour
     private int _orbit = 0;                         //amount of orbits
     private int _orbitSize = 0;                     //amount of arrows the current orbit can has
     private int _index = 1;                         //current arrow index in the orbit
+    private float _singleArrowColliderSizeX;        //used for adjusting collider size while rearranging arrows
 
     private Player _player;
 
     private void Awake()
     {
         _player = GetComponentInParent<Player>();
+        _singleArrowColliderSizeX = _player.GetComponent<BoxCollider>().size.x;
     }
 
     public void AddArrows(int count)
@@ -37,6 +39,13 @@ public class ArrowSystem : MonoBehaviour
         if (_player.ArrowCount - count <= 0)
         {
             //game over
+            for (int i = 0; i < _player.ArrowCount; i++)
+            {
+                Destroy(_player.Arrows[_player.ArrowCount - i - 1].gameObject);
+                ChangeOrbit(false);
+                _player.Arrows.RemoveAt(_player.ArrowCount - i - 1);
+            }
+            _player.UpdateScoreBoard();
             _player.Dead();
             return;
         }
@@ -75,6 +84,7 @@ public class ArrowSystem : MonoBehaviour
             if (_index > _orbitSize) 
             {
                 _orbit++;
+                AdjustColliderSize(1); //enlarge collider size
                 _orbitSize = CalculateOrbitSize(_orbit);
                 _index = 1;
             }
@@ -85,6 +95,7 @@ public class ArrowSystem : MonoBehaviour
             if (_index == 0)
             {
                 _orbit--;
+                AdjustColliderSize(-1); //decrease collider size
                 _orbitSize = CalculateOrbitSize(_orbit);
                 _index = _orbitSize;
             }
@@ -95,5 +106,18 @@ public class ArrowSystem : MonoBehaviour
     {
         //Calculates how many arrows the orbit can hold
         return Mathf.RoundToInt(2 * Mathf.PI * orbit) + 1;
+    }
+
+    private void AdjustColliderSize(int diff)
+    {
+        if(_orbit > 1)
+        {
+            var collider = _player.GetComponent<BoxCollider>();
+            float offset = 2 * _singleArrowColliderSizeX;
+            float radiusCoeff = (_radius / 100) / _singleArrowColliderSizeX;
+            float signedOffset = offset * radiusCoeff * diff;
+
+            collider.size = new Vector3(collider.size.x + signedOffset, collider.size.y + signedOffset, collider.size.z);
+        }
     }
 }

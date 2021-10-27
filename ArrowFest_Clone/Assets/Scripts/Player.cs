@@ -17,6 +17,7 @@ public class Player : MonoBehaviour, IDamageable
 
     public List<Transform> Arrows { get => _arrows; }
     public int ArrowCount { get => arrowCount; }
+    public bool IsAllive { get => _isAllive; }
 
     private void Awake()
     {
@@ -41,7 +42,7 @@ public class Player : MonoBehaviour, IDamageable
     public void Move(Vector2 target, float leftLimit, float rightLimit, float speed)
     {
         //In order to move the arrows, we need to change offset values of spline follower component
-        _follower.motion.offset += new Vector2(target.x * speed / 1000, 0);
+        _follower.motion.offset += new Vector2(target.x * Time.deltaTime * speed / 1000, 0);
 
         //If the limit is exceeded, these values ​​are clamped.
         if (_follower.motion.offset.x > rightLimit || _follower.motion.offset.x < leftLimit)
@@ -49,12 +50,14 @@ public class Player : MonoBehaviour, IDamageable
     }
     public void Follow()
     {
+        GameManager.Instance.IsPlaying = true;
         _follower.follow = true;
         _screenLoader.AnimateFirstTap();
     }
 
     public void Dead()
     {
+        GameManager.Instance.IsPlaying = false;
         _isAllive = false;
         _follower.follow = false;
         _screenLoader.AnimateLoseScreen();
@@ -81,11 +84,13 @@ public class Player : MonoBehaviour, IDamageable
         SplineTracer.NodeConnection nodeConnection = passed[0];
         if (nodeConnection.node.name == "Node_1")
         {
+            GameManager.Instance.IsPlaying = false;
+            _isAllive = false;
             _screenLoader.AnimateWinScreen();
         }
     }
 
-    private void OnTriggerExit(Collider other)
+    private void OnTriggerEnter(Collider other)
     {
         if (other.gameObject.GetComponent<IDamageable>() != null)
         {
